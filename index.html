@@ -9,11 +9,11 @@
 				font-family: Arial, sans-serif;
 				margin: 0;
 				padding: 0;
-				background-color: #f4f4f4;
+				background-color: #250321;
 			}
 			.container {
 				max-width: 600px;
-				margin: 20px auto;
+				margin: 40px auto;
 				padding: 20px;
 				background-color: #fff;
 				border-radius: 8px;
@@ -36,16 +36,16 @@
 				border-radius: 4px;
 				box-sizing: border-box;
 			}
-			button {
+			#addTodo {
 				padding: 10px 20px;
-				background-color: #007bff;
+				background-color: #5f0165;
 				color: #fff;
 				border: none;
 				border-radius: 4px;
 				cursor: pointer;
 			}
-			button:hover {
-				background-color: #0056b3;
+			#addTodo:hover {
+				background-color: #420147;
 			}
 			ul {
 				list-style-type: none;
@@ -58,30 +58,41 @@
 				padding: 10px;
 				border-bottom: 1px solid #ccc;
 			}
+			.buttonsContainer {
+				display: flex;
+				gap: 10px;
+				padding-left: 8px;
+			}
 			.editButton {
 				padding: 5px 10px;
-				background-color: #ffc107;
-				color: #000;
+				/* background-color: #ffdff3; */
+				background-color: #fff;
+				color: #5f0165;
 				border: none;
 				border-radius: 4px;
 				cursor: pointer;
+				font-weight: 600;
+				transition: all 0.3s ease-in-out;
 			}
 
 			.editButton:hover {
-				background-color: #e0a800;
+				background-color: #fdceeb;
 			}
 
 			.deleteButton {
 				padding: 5px 10px;
-				background-color: #dc3545;
-				color: #fff;
+				color: #dc3545;
+				background-color: #fff;
 				border: none;
 				border-radius: 4px;
 				cursor: pointer;
+				font-weight: 600;
+				transition: all 0.3s ease-in-out;
 			}
 
 			.deleteButton:hover {
 				background-color: #bd2130;
+				color: #fff;
 			}
 		</style>
 	</head>
@@ -92,7 +103,7 @@
 				<input
 					type="text"
 					id="todoInput"
-					placeholder="Add new todo"
+					placeholder="Add a todo"
 					value=""
 				/>
 				<button id="addTodo" onclick="addTodo()">Add</button>

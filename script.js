@@ -24,12 +24,13 @@ function addTodo() {
 		li.classList.add("tododText");
 
 		// edit button
-		editButton.textContent = "edit";
+		editButton.textContent = "Edit";
 		editButton.classList.add("editButton");
 
 		// delete button
-		deleteButton.textContent = "delete";
+		deleteButton.textContent = "Delete";
 		deleteButton.classList.add("deleteButton");
+		buttonsContainer.classList.add("buttonsContainer");
 
 		// buttons container
 		buttonsContainer.appendChild(editButton);
@@ -38,67 +39,65 @@ function addTodo() {
 		li.appendChild(todoItem);
 		li.appendChild(buttonsContainer);
 
-		// Adding an event listener to the button
-
-		editButton.addEventListener("click", function () {
-			editTodoItem(newTodo, li);
-		});
-
-		deleteButton.addEventListener("click", function () {
-			deleteTodoItem(newTodo, li);
-		});
-
 		todoListContainer.appendChild(li);
 	}
 }
 
-// function to edit todo
 
-function editTodoItem(todoItemText, listItem) {
-	// Create an input field
+// adding events listeners to the buttons
+todoListContainer.addEventListener("click", function (event) {
+	const target = event.target;
+
+	if (target.classList.contains("editButton")) {
+		const listItem = target.closest("li");
+		const todoItem = listItem.querySelector("p");
+		editTodoItem(todoItem, listItem);
+	} else if (target.classList.contains("deleteButton")) {
+		const listItem = target.closest("li");
+		const todoItem = listItem.querySelector("p");
+		deleteTodoItem(todoItem.textContent, listItem);
+	}
+});
+
+
+// function to edit todo item
+function editTodoItem(todoItem, listItem) {
+	console.log("Current item", todoItem.textContent);
+
+	// an input field for editing
 	const inputField = document.createElement("input");
 	inputField.type = "text";
-	inputField.value = todoItemText.textContent;
+	inputField.value = todoItem.textContent;
 
-	// Add event listener to the input field
+	// Replacing the todo item text with the input field
+	todoItem.replaceWith(inputField);
+	inputField.focus();
+
+	// Adding event listener to the input field
 	inputField.addEventListener("blur", function () {
 		const updatedTodo = inputField.value.trim();
 
 		if (updatedTodo !== "") {
-			// Update the todo item text
-			todoItemText.textContent = updatedTodo;
+			const newTodoItem = document.createElement("p");
+			newTodoItem.textContent = updatedTodo;
 
-			// Update the todo in the array
-			const index = todoList.indexOf(todoItemText.textContent);
+			// Replacing the input field with the updated todo item text
+			inputField.replaceWith(newTodoItem);
+
+			// Updating the todo in the list
+			const index = todoList.indexOf(todoItem.textContent);
 			if (index !== -1) {
 				todoList[index] = updatedTodo;
 			}
+		} else {
+			const defaultTodoItem = document.createElement("p");
+			defaultTodoItem.textContent = todoItem.textContent;
+			inputField.replaceWith(defaultTodoItem);
 		}
-
-		// Remove the input field
-		listItem.removeChild(inputField);
 	});
-
-	// Append the input field to the li
-	listItem.appendChild(inputField);
-
-	// Focus on the input field
-	inputField.focus();
 }
-// function editTodoItem(todo, listItem) {
-// 	const updatedTodo = prompt("Update todo:", todo);
 
-// 	if (updatedTodo !== null) {
-// 		const todoItem = listItem.querySelector("p");
-// 		todoItem.textContent = updatedTodo;
 
-// 		// Update the todo in the array
-// 		const index = todoList.indexOf(todo);
-// 		if (index !== -1) {
-// 			todoList[index] = updatedTodo;
-// 		}
-// 	}
-// }
 
 // function to delete todo
 function deleteTodoItem(todo, listItem) {
