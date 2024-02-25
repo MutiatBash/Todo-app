@@ -97,8 +97,6 @@ function editTodoItem(todoItem, listItem) {
 	});
 }
 
-
-
 // function to delete todo
 function deleteTodoItem(todo, listItem) {
 	const index = todoList.indexOf(todo);
